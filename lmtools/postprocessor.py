@@ -201,7 +201,7 @@ class Postprocessor:
         df = df.copy()
 
         # Our function for calculating weight on ground truth
-        get_correct_weight = lambda row: row['probs'].get(row['ground_truth'], 0)
+        get_correct_weight = lambda row: max(row['probs'].get(row['ground_truth'], 0), row['probs'].get(row['ground_truth'].lower(), 0))
 
         # Calculate conditional entropy for each row
         df['correct_weight'] = df.apply(get_correct_weight, axis=1)
