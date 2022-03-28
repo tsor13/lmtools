@@ -1,17 +1,15 @@
 from datetime import date
-from lmtools.lmsampler import LMSampler
 
 import pandas as pd
 import tqdm
 
-class Experiment:
+from lmtools.lmsampler import LMSampler
 
-    def __init__(self,
-                 model_name,
-                 ds_name=None,
-                 in_fname=None,
-                 out_fname=None,
-                 n_probs=100):
+
+class Experiment:
+    def __init__(
+        self, model_name, ds_name=None, in_fname=None, out_fname=None, n_probs=100
+    ):
 
         # Get in_fname and out_fname
         if ds_name is not None:
@@ -21,12 +19,13 @@ class Experiment:
             in_fname = f"data/{ds_name}/ds.pkl"
             date_str = date.today().strftime("%d-%m-%Y")
             # replace '/' with '-'
-            out_fname = (f"data/{ds_name}/exp_results_"
-                         f"{model_name.replace('/', '-')}_{date_str}.pkl")
+            out_fname = (
+                f"data/{ds_name}/exp_results_"
+                f"{model_name.replace('/', '-')}_{date_str}.pkl"
+            )
         else:
             if (in_fname is None) or (out_fname is None):
-                msg = ("Please either specify ds_name "
-                       "OR (in_fname AND out_fname)")
+                msg = "Please either specify ds_name " "OR (in_fname AND out_fname)"
                 raise RuntimeError(msg)
             else:
                 pass
@@ -49,11 +48,9 @@ class Experiment:
 
     def _run(self):
         resps = []
-        for _, row in tqdm.tqdm(self._ds_df.iterrows(),
-                                total=self._ds_df.shape[0]):
+        for _, row in tqdm.tqdm(self._ds_df.iterrows(), total=self._ds_df.shape[0]):
             try:
-                resp = self._model.send_prompt(row["prompt"],
-                                               n_probs=self._n_probs)
+                resp = self._model.send_prompt(row["prompt"], n_probs=self._n_probs)
                 resps.append(resp)
             except Exception as e:
                 print(e)
