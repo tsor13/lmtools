@@ -325,7 +325,7 @@ def process_all():
     process(files_to_process)
 
 def main():
-    argparser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser()
     parser.add_argument('-f', '--filename', type=str,
                         help='path to file to process',
                         required=True)
@@ -338,7 +338,6 @@ def main():
     if save_fname is None:
         save_fname = input_fname.replace('.pkl', '_processed.pkl')
     Postprocessor(input_fname, save_fname)
-
 
 
 
