@@ -13,11 +13,20 @@ class LM_GPT2(LMSamplerBaseClass):
         '''
         Supported models: 'gpt2', 'gpt2-medium', 'gpt2-large', 'gpt2-xl', 'distilgpt2'
         '''
+        supported_models = ['gpt2', 'gpt2-medium', 'gpt2-large', 'gpt2-xl', 'distilgpt2']
         # initialize model with model_name
         print(f'Loading {model_name}...')
         # TODO - add GPU support
         self.model = GPT2LMHeadModel.from_pretrained(model_name)
-        self.tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+        if model_name in supported_models:
+            self.tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+        else:
+            # loop through and see if supported model is in model_name
+            for model in supported_models:
+                if model in model_name:
+                    self.tokenizer = GPT2Tokenizer.from_pretrained(model)
+                    break
+
 
         # get the number of attention layers
         n_blocks = self.model.config.n_layer
