@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from tqdm import tqdm
 import os
+import argparse
 
 def exponentiate(d):
     '''
@@ -322,6 +323,24 @@ def process_all():
     file_string = '\n'.join(files_to_process)
     print(f'Processing: {file_string}')
     process(files_to_process)
+
+def main():
+    argparser = argparse.ArgumentParser()
+    parser.add_argument('-f', '--filename', type=str,
+                        help='path to file to process',
+                        required=True)
+    parser.add_argument('-s', '--save', type=str,
+                        help='path to save processed file to')
+
+    args = parser.parse_args()
+    input_fname = args.filename
+    save_fname = args.save
+    if save_fname is None:
+        save_fname = input_fname.replace('.pkl', '_processed.pkl')
+    Postprocessor(input_fname, save_fname)
+
+
+
 
 if __name__ == '__main__':
     import argparse

@@ -27,6 +27,7 @@ setup(
     entry_points={
         'console_scripts': [
             'lm-pipeline = lmtools.pipeline:main',
+            'lm-postprocess = lmtools.postprocessor:main',
         ]
     },
     # install_requires=install_requires,
