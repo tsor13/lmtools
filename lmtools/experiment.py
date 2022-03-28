@@ -3,8 +3,6 @@ from lmtools.lmsampler import LMSampler
 
 import pandas as pd
 import tqdm
-import warnings
-
 
 class Experiment:
 
@@ -31,12 +29,6 @@ class Experiment:
                        "OR (in_fname AND out_fname)")
                 raise RuntimeError(msg)
             else:
-                # Use the in_fname and out_fname
-                # provided
-                # msg = ("Specifying in_fname and out_fname "
-                #        "instead of ds_name is not generally "
-                #        "recommended.")
-                # warnings.warn(msg)
                 pass
 
         self._model_name = model_name

@@ -11,9 +11,7 @@ def get_device_map(gpus, n_layers):
     remainder = n_layers % len(gpus)
     cutoffs = [layers_per_gpu * i + min(i, remainder) for i in range(len(gpus))]
     cutoffs.append(n_layers)
-    # device_map = {
-    #     gpu: [i for i in range(layers_per_gpu * gpu_num, layers_per_gpu * (gpu_num + 1))] for gpu_num, gpu in enumerate(gpus)
-    # }
+    # map to device
     device_map = {
         gpu: [i for i in range(cutoffs[gpu_num], cutoffs[gpu_num + 1])] for gpu_num, gpu in enumerate(gpus)
     }

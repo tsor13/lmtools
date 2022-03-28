@@ -2,7 +2,6 @@ from lmtools.lmsampler_baseclass import LMSamplerBaseClass
 from lmtools.lm_utils import get_device_map
 import torch
 import numpy as np
-from pdb import set_trace as breakpoint
 
 from transformers import AutoModelForCausalLM, AutoTokenizer
 

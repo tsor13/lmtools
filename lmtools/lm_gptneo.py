@@ -3,7 +3,6 @@ from lmtools.lmsampler_baseclass import LMSamplerBaseClass
 import torch
 from transformers import GPTNeoForCausalLM, GPT2Tokenizer
 import numpy as np
-from pdb import set_trace as breakpoint
 
 class LM_GPTNEO(LMSamplerBaseClass):
     def __init__(self, model_name):
@@ -22,7 +21,6 @@ class LM_GPTNEO(LMSamplerBaseClass):
         # get the number of attention layers
         if torch.cuda.is_available():
             # get all available GPUs
-            gpus = np.arange(torch.cuda.device_count())
             self.device = 'cuda:0'
             self.model = self.model.to(self.device)
             print(f'Loaded model on 1 GPU.')

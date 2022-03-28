@@ -54,7 +54,6 @@ class LM_GPT3(LMSamplerBaseClass):
 if __name__ == '__main__':
     # test LM_GPT2
     lm = LM_GPT3("gpt3-ada")
-    # probs = lm.send_prompt("What is the capital of France?\nThe capital of France is")
     text = lm.sample_several(prompt="What is the capital of France?\nThe capital of France is", temperature=0, n_tokens=50)
     print(text)
     pass

@@ -1,10 +1,8 @@
 from lmtools.lmsampler_baseclass import LMSamplerBaseClass
-from lmtools.lm_utils import get_device_map
 
 import torch
 from transformers import BertTokenizer, BertForMaskedLM
 import numpy as np
-from pdb import set_trace as breakpoint
 
 class LM_BERT(LMSamplerBaseClass):
     def __init__(self, model_name):
@@ -20,16 +18,9 @@ class LM_BERT(LMSamplerBaseClass):
         # TODO - add GPU support
         self.model = BertForMaskedLM.from_pretrained(model_name)
         self.tokenizer = BertTokenizer.from_pretrained(model_name)
-        # if torch.cuda.is_available():
-        #     self.device = 'cuda:0'
-        # else:
-        #     self.device = 'cpu'
-        # # send to device
-        # self.model = self.model.to(self.device)
 
         # get the number of attention layers
         if torch.cuda.is_available():
-            # get all available GPUs
             self.device = 'cuda:0'
             self.model = self.model.to(self.device)
             print(f'Loaded model on 1 GPU.')

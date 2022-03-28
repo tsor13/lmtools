@@ -25,13 +25,10 @@ class LMSampler(LMSamplerBaseClass):
         if model_name in ['gpt3-ada', 'gpt3-babbage', 'gpt3-curie', 'gpt3-davinci', 'ada', 'babbage', 'curie', 'davinci']:
             self.model = LM_GPT3(model_name)
         # if any of 'gpt2', ... 'gpt2-xl' in model_name
-        # elif model_name in ['gpt2', 'gpt2-medium', 'gpt2-large', 'gpt2-xl', 'distilgpt2']:
         elif any(str in model_name for str in ['gpt2', 'gpt2-medium', 'gpt2-large', 'gpt2-xl', 'distilgpt2']):
             self.model = LM_GPT2(model_name)
-        # elif model_name in ['EleutherAI/gpt-j-6B']:
         elif 'EleutherAI/gpt-j-6B' in model_name:
             self.model = LM_GPTJ(model_name)
-        # elif model_name in ['EleutherAI/gpt-neo-2.7B', 'EleutherAI/gpt-neo-1.3B', 'EleutherAI/gpt-neo-125M']:
         elif any(str in model_name for str in ['EleutherAI/gpt-neo-2.7B', 'EleutherAI/gpt-neo-1.3B', 'EleutherAI/gpt-neo-125M']):
             self.model = LM_GPTNEO(model_name)
         # elif model_name in ['bert-base-uncased', 'bert-base-cased']:
@@ -52,9 +49,6 @@ class LMSampler(LMSamplerBaseClass):
 
 
 if __name__ == '__main__':
-    # model_name = 'gpt3-ada'
     model_name = 'gpt3-ada'
     sampler = LMSampler(model_name)
     print(sampler.sample_several('The capital of France is', temperature=0, n_tokens=10))
-    #print(sampler.send_prompt('The best city in Spain is', 5))
-    #print(sampler.send_prompt('In 2016, I voted for', 5))

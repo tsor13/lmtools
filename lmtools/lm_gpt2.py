@@ -5,8 +5,6 @@ import torch
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
 import numpy as np
 
-from pdb import set_trace as breakpoint
-
 class LM_GPT2(LMSamplerBaseClass):
     def __init__(self, model_name):
         super().__init__(model_name)

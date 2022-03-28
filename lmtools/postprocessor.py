@@ -114,21 +114,6 @@ class Postprocessor:
         self.df = pd.read_pickle(results_fname)
 
         self.df['ground_truth'] = self.df['ground_truth'].astype(str)
-        # # TODO - remove? to fix earlier bug
-        # if 'imdb' in results_fname:
-        #     # make 'token_sets' ['positive', 'negative']
-        #     self.df['token_sets'] = [['positive', 'negative']] * len(self.df)
-        # if 'boolq' in results_fname:
-        #     # 'ground_truth' to string
-        #     self.df['ground_truth'] = self.df['ground_truth'].astype(str)
-        #     # where 'template_name' is 'few-shot3', change token set
-        #     token_set = {'True': ['yes'], 'False': ['no']}
-        #     def f(row):
-        #         if row['template_name'] == 'few-shot3':
-        #             return token_set
-        #         else:
-        #             return row['token_sets']
-        #     self.df['token_sets'] = self.df.apply(f, axis=1)
 
         # get number of instances where 'resp' is missing
         num_missing = self.df.loc[self.df.resp.isnull()].shape[0]
