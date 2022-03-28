@@ -33,10 +33,10 @@ class Experiment:
             else:
                 # Use the in_fname and out_fname
                 # provided
-                msg = ("Specifying in_fname and out_fname "
-                       "instead of ds_name is not generally "
-                       "recommended.")
-                warnings.warn(msg)
+                # msg = ("Specifying in_fname and out_fname "
+                #        "instead of ds_name is not generally "
+                #        "recommended.")
+                # warnings.warn(msg)
                 pass
 
         self._model_name = model_name
