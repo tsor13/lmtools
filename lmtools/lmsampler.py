@@ -4,6 +4,7 @@ from lmtools.lm_gpt2 import LM_GPT2
 from lmtools.lm_gptj import LM_GPTJ
 from lmtools.lm_gptneo import LM_GPTNEO
 from lmtools.lm_bert import LM_BERT
+from lmtools.lm_jurassic import LM_JURASSIC
 
 class LMSampler(LMSamplerBaseClass):
     '''
@@ -19,6 +20,7 @@ class LMSampler(LMSamplerBaseClass):
             - GPT-J: 'EleutherAI/gpt-j-6B'
             - GPT-Neo: 'EleutherAI/gpt-neo-2.7B', 'EleutherAI/gpt-neo-1.3B', 'EleutherAI/gpt-neo-125M'
             - BERT: 'bert-base-uncased', 'bert-base-cased'
+            - Jurassic: 'j1-jumbo', 'j1-large'
         '''
         if model_name in ['gpt3-ada', 'gpt3-babbage', 'gpt3-curie', 'gpt3-davinci', 'ada', 'babbage', 'curie', 'davinci']:
             self.model = LM_GPT3(model_name)
@@ -35,6 +37,8 @@ class LMSampler(LMSamplerBaseClass):
         # elif model_name in ['bert-base-uncased', 'bert-base-cased']:
         elif any(str in model_name for str in ['bert-base-uncased', 'bert-base-cased']):
             self.model = LM_BERT(model_name)
+        elif model_name in ['j1-jumbo', 'j1-large']:
+            self.model = LM_JURASSIC(model_name)
         else:
             raise ValueError(f'Model {model_name} not supported.')
 
