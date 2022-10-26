@@ -119,7 +119,12 @@ class Postprocessor:
         # Read in dataframe specified by results_fname
         self.df = pd.read_pickle(results_fname)
 
-        self.df["ground_truth"] = self.df["ground_truth"].astype(str)
+        # check if has ground truth
+        if "ground_truth" in self.df.columns:
+            self.has_ground_truth = True
+            self.df["ground_truth"] = self.df["ground_truth"].astype(str)
+        else:
+            self.has_ground_truth = False
 
         # get number of instances where 'resp' is missing
         num_missing = self.df.loc[self.df.resp.isnull()].shape[0]
@@ -141,13 +146,17 @@ class Postprocessor:
         self.normalize_probs()
 
         # calculate mutual information
-        self.df = self.calculate_mutual_information(self.df)
+        # if 'template_name' is not in df, don't calculate mutual information
+        if "template_name" in self.df.columns:
+            self.df = self.calculate_mutual_information(self.df)
 
         # calculate accuracy
-        self.df = self.calculate_accuracy(self.df)
+        if self.has_ground_truth:
+            self.df = self.calculate_accuracy(self.df)
 
         # calculate correct weight
-        self.df = self.calculate_correct_weight(self.df)
+        if self.has_ground_truth:
+            self.df = self.calculate_correct_weight(self.df)
 
         # save df
         self.df.to_pickle(save_fname)
@@ -193,6 +202,10 @@ class Postprocessor:
 
         Returns modified df.
         """
+        # raise error if ground_truth not in df
+        if "ground_truth" not in df.columns:
+            raise RuntimeError("Ground truth is required for calculating correct weight")
+
         df = df.copy()
 
         # Our function for calculating weight on ground truth
@@ -274,6 +287,10 @@ class Postprocessor:
 
         Returns modified df.
         """
+        # check if ground truth is in df
+        if "ground_truth" not in df.columns:
+            raise RuntimeError("Ground truth is required for calculating accuracy")
+
         df = df.copy()
 
         # if row['ground_truth'] starts with argmax(row['probs']) stripped and lowercase, then it's correct
