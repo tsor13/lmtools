@@ -5,10 +5,6 @@ import requests
 
 from lmtools.lmsampler_baseclass import LMSamplerBaseClass
 
-API_KEY = os.environ.get("AI21_API_KEY")
-if not API_KEY:
-    raise Exception('NO API KEY. PLEASE ENTER UNDER "export AI21_API_KEY=????"')
-
 
 class LM_JURASSIC(LMSamplerBaseClass):
     def __init__(self, model_name="j1-jumbo"):
@@ -24,6 +20,9 @@ class LM_JURASSIC(LMSamplerBaseClass):
             )
         # make sure API key is set
         self.API_KEY = API_KEY
+        # make sure API key is set
+        if os.environ.get("AI21_API_KEY") is None:
+            raise Exception("Please set API key as environment variable")
         # warn only once
         self.warned = False
 
