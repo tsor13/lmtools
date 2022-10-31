@@ -1,0 +1,8 @@
+Metadata-Version: 2.1
+Name: lmtools
+Version: 0.1
+Summary: Tools for OTR with language models.
+Home-page: http://github.com/tsor13/lmtools
+Author: Taylor Sorensen
+Author-email: tsor1313@gmail.com
+License: MIT

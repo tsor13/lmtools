@@ -1,0 +1,3 @@
+[console_scripts]
+lm-pipeline = lmtools.pipeline:main
+lm-postprocess = lmtools.postprocessor:main
