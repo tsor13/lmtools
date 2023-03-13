@@ -3,12 +3,13 @@ import time
 import openai
 
 from lmtools.lmsampler_baseclass import LMSamplerBaseClass
+import numpy as np
 
 
 class LM_GPT3(LMSamplerBaseClass):
     def __init__(self, model_name):
         """
-        Supported models: 'ada', 'babbage', 'curie', 'davinci', 'gpt3-ada', gpt3-babbage', gpt3-curie', gpt3-davinci', 'text-ada-001', 'text-babbage-001', 'text-curie-001', 'text-davinci-001', 'text-davinci-002'
+        Supported models: 'ada', 'babbage', 'curie', 'davinci', 'gpt3-ada', gpt3-babbage', gpt3-curie', gpt3-davinci', 'text-ada-001', 'text-babbage-001', 'text-curie-001', 'text-davinci-001', 'text-davinci-002', 'text-davinci-003'
         """
         super().__init__(model_name)
         if "gpt3" in model_name:
@@ -27,12 +28,16 @@ class LM_GPT3(LMSamplerBaseClass):
             "text-curie-001",
             "text-davinci-001",
             "text-davinci-002",
+            "text-davinci-003",
         ]
         if self.engine not in valid_engines:
             raise ValueError(f"engine {self.engine} not in {valid_engines}")
         # make sure API key is set
         if openai.api_key is None:
             raise ValueError("OpenAI API key must be set")
+    
+    def get_completion(self, prompt, args):
+        response = openai
 
     def send_prompt(self, prompt, n_probs=100):
         start_time = time.time()
@@ -63,6 +68,7 @@ class LM_GPT3(LMSamplerBaseClass):
             max_tokens=n_tokens,
             temperature=temperature,
         )
+        breakpoint()
         return response["choices"][0]["text"]
 
 
