@@ -61,21 +61,20 @@ class LM_GPT3(LMSamplerBaseClass):
             time.sleep(wait_time)
         return sorted_logprobs
 
-    def sample_several(self, prompt, temperature=0, n_tokens=10):
+    def sample(self, prompt, temperature=0, n_tokens=10):
         response = openai.Completion.create(
             engine=self.engine,
             prompt=prompt,
             max_tokens=n_tokens,
             temperature=temperature,
         )
-        breakpoint()
         return response["choices"][0]["text"]
 
 
 if __name__ == "__main__":
     # test LM_GPT2
     lm = LM_GPT3("gpt3-ada")
-    text = lm.sample_several(
+    text = lm.sample(
         prompt="What is the capital of France?\nThe capital of France is",
         temperature=0,
         n_tokens=50,
